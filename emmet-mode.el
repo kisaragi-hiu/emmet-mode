@@ -70,6 +70,7 @@
 
 (defconst emmet-mode:version "1.0.10")
 (require 'cl-lib)
+(require 'subr-x)
 
 (defun emmet-jsx-prop-value-var? (prop-value)
   (string-match "{.+}" prop-value))
@@ -91,6 +92,7 @@
   "Parse according to a regex and update the `input' variable."
   `(emmet-aif (emmet-regex ,regex input ',(number-sequence 0 nums))
        (let ((input (elt it ,nums)))
+         (ignore input)
          ,@body)
      `,`(error ,(concat "expected " ,label))))
 
@@ -101,6 +103,8 @@
   `(emmet-pif (,parser input)
        (let ((input (cdr it))
              (expr (car it)))
+         (ignore input)
+         (ignore expr)
          ,then-form)
      ,@(or else-forms '(it))))
 
@@ -109,10 +113,14 @@
   `(emmet-pif (,parser1 input)
        (let ((input (cdr it))
              (expr (car it)))
+         (ignore input)
+         (ignore expr)
          ,then-form)
      (emmet-pif (,parser2 input)
          (let ((input (cdr it))
                (expr (car it)))
+           (ignore input)
+           (ignore expr)
            ,then-form)
        ,@else-forms)))
 
