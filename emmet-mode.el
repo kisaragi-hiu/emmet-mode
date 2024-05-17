@@ -1,5 +1,6 @@
-;;; emmet-mode.el --- Unofficial Emmet's support for emacs  -*- lexical-binding: t; -*-
+;;; emmet-mode.el --- Emacs implementation of Emmet  -*- lexical-binding: t; -*-
 
+;; Copyright (C) 2024-     Kisaragi Hiu       (@kisaragi-hiu https://github.com/kisaragi-hiu)
 ;; Copyright (C) 2014-     Dmitry Mukhutdinov (@flyingleafe  https://github.com/flyingleafe)
 ;; Copyright (C) 2014-     William David Mayo (@pbocks       https://github.com/pobocks)
 ;; Copyright (C) 2013-     Shin Aoyama        (@smihica      https://github.com/smihica)
@@ -8,7 +9,7 @@
 ;; Version: 1.0.10
 ;; Author: Shin Aoyama <smihica@gmail.com>
 ;; URL: https://github.com/smihica/emmet-mode
-;; Last-Updated: 2014-08-11 Mon
+;; Last-Updated: 2024-05-17
 ;; Keywords: convenience
 ;; Package-Requires: ((emacs "24.4"))
 
@@ -78,15 +79,22 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generic parsing macros and utilities
 
-(defmacro emmet-aif (test-form then-form &rest else-forms)
-  "Anaphoric if. Temporary variable `it' is the result of test-form."
-  `(let ((it ,test-form))
-     (if it ,then-form ,@(or else-forms '(it)))))
+(defmacro emmet-aif (test then &rest else)
+  "Anaphoric if.
 
-(defmacro emmet-pif (test-form then-form &rest else-forms)
-  "Parser anaphoric if. Temporary variable `it' is the result of test-form."
-  `(let ((it ,test-form))
-     (if (not (eq 'error (car it))) ,then-form ,@(or else-forms '(it)))))
+Bind the value of TEST to `it'; if it is nil, do THEN, otherwise
+do ELSE."
+  `(let ((it ,test))
+     (if it ,then ,@(or else '(it)))))
+
+(defmacro emmet-pif (test then &rest else)
+  "Anaphoric if for parsing.
+
+Bind the value of TEST to `it'; if it is a cons with `error' as
+its car, do THEN, otherwise do ELSE. If the ELSE branch is taken,
+but ELSE returns nil, return the value of THEN instead."
+  `(let ((it ,test))
+     (if (not (eq 'error (car it))) ,then ,@(or else '(it)))))
 
 (defmacro emmet-parse (regex nums label &rest body)
   "Parse according to a regex and update the `input' variable."
@@ -97,8 +105,7 @@
      `,`(error ,(concat "expected " ,label))))
 
 (defmacro emmet-run (parser then-form &rest else-forms)
-  "Run a parser and update the input properly, extract the parsed
-   expression."
+  "Run a parser and update the input properly, extract the parsed expression."
   (declare (indent 2))
   `(emmet-pif (,parser input)
        (let ((input (cdr it))
