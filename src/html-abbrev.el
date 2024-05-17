@@ -379,14 +379,14 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
   "Parse an tag>e expression, where `n' is an tag and `e' is any
    expression."
   (cl-labels
-    ((listing (parents child input)
-        (let ((len (length parents)))
-          `((list ,(map 'list
-                        (lambda (parent i)
-                          `(parent-child ,parent
-                                         ,(emmet-instantiate-numbering-expression i len child)))
-                        parents
-                        (cl-loop for i to (- len 1) collect i))) . ,input))))
+      ((listing (parents child input)
+         (let ((len (length parents)))
+           `((list ,(cl-map 'list
+                            (lambda (parent i)
+                              `(parent-child ,parent
+                                ,(emmet-instantiate-numbering-expression i len child)))
+                            parents
+                            (cl-loop for i to (- len 1) collect i))) . ,input))))
     (emmet-run
      emmet-multiplier
      (let* ((items (cadr expr))
@@ -777,9 +777,9 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
   (let ((type (car ast)))
     (cond
      ((eq type 'list)
-      (mapconcat (lexical-let ((make-tag-fun tag-maker))
-                   #'(lambda (sub-ast)
-                       (emmet-transform-ast sub-ast make-tag-fun)))
+      (mapconcat (let ((make-tag-fun tag-maker))
+                   (lambda (sub-ast)
+                     (emmet-transform-ast sub-ast make-tag-fun)))
                  (cadr ast)
                  "\n"))
      ((eq type 'tag)
