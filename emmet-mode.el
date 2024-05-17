@@ -10,7 +10,7 @@
 ;; URL: https://github.com/smihica/emmet-mode
 ;; Last-Updated: 2014-08-11 Mon
 ;; Keywords: convenience
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.4"))
 
 ;; This file is free software; you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -70,19 +70,6 @@
 
 (defconst emmet-mode:version "1.0.10")
 (require 'cl-lib)
-
-(defun emmet-join-string (lis joiner)
-  (mapconcat 'identity lis joiner))
-
-(defun emmet-get-keys-of-hash (hash)
-  (let ((ks nil))
-    (maphash #'(lambda (k v) (setq ks (cons k ks))) hash)
-    ks))
-
-(defun emmet-get-vals-of-hash (hash)
-  (let ((vs nil))
-    (maphash #'(lambda (k v) (setq vs (cons v vs))) hash)
-    vs))
 
 (defun emmet-jsx-prop-value-var? (prop-value)
   (string-match "{.+}" prop-value))
@@ -1323,12 +1310,12 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
             (if b
                 `(lambda (contents)
                    (concat
-                    ,(emmet-join-string (reverse a) "\n")
+                    ,(string-join (reverse a) "\n")
                     contents
-                    ,(emmet-join-string (reverse b) "\n")))
+                    ,(string-join (reverse b) "\n")))
               `(lambda (contents)
                  (concat
-                  ,(emmet-join-string (reverse a) "\n")
+                  ,(string-join (reverse a) "\n")
                   contents))))))
       (eval (iter lines 'a nil nil)))))
 
@@ -1642,7 +1629,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
                        (if (string-equal (substring l -1) ",")
                            (append (cl-subseq w 0 -1) (list (substring l 0 -1)))
                          w)))))
-        (concat (emmet-upcase-first (emmet-join-string words " ")) last
+        (concat (emmet-upcase-first (string-join words " ")) last
                 (let ((next (emmet-lorem-generate (- count sl))))
                   (if (string-equal next "") ""
                     (concat " " next))))))))
@@ -1676,8 +1663,8 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
 (defun emmet-css-arg-color (input)
   (emmet-parse
    (concat " *#\\([0-9a-fA-F]\\{1,6\\}\\)\\(rgb\\|\\)\\(["
-           (emmet-join-string
-            (emmet-get-keys-of-hash emmet-css-color-trailing-aliases) "")
+           (string-join
+            (hash-table-keys emmet-css-color-trailing-aliases) "")
            "]\\|\\)")
    4 "css color argument"
    (let ((color
@@ -1804,7 +1791,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
 
 (defvar
  emmet-css-unitless-properties-regex
- (concat "^\\(:?" (emmet-join-string
+ (concat "^\\(:?" (string-join
                    emmet-css-unitless-properties "\\|")
          "\\):.*$"))
 
@@ -1812,7 +1799,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
   (cl-flet ((insert-space-between-name-and-body
           (str)
           (if (string-match "^\\([a-z-]+:\\)\\(.+\\)$" str)
-              (emmet-join-string
+              (string-join
                (mapcar (lambda (ref) (match-string ref str)) '(1 2)) " ")
             str))
          (split-string-to-body
@@ -1842,7 +1829,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
             (progn
               (when (nthcdr ,idx-max ,args)
                 (setf (nthcdr ,idx-max ,args)
-                      (list (emmet-join-string
+                      (list (string-join
                              (nthcdr ,idx-max ,args) " "))))
               ,body)))))))
 
@@ -1864,13 +1851,13 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
                                  ((= v ?s) "ms")
                                  ((= v ?o) "o")))
                          vp))))
-      (emmet-join-string
+      (string-join
        (append (mapcar (lambda (v) (concat "-" v "-" line)) vps)
                (list line))
        "\n"))))
 
 (defun emmet-css-transform-exprs (exprs)
-  (emmet-join-string
+  (string-join
    (mapcar
     #'(lambda (expr)
         (let* 
@@ -1903,7 +1890,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
 			       arg))
 			 (cdddr expr))))
 	       (concat (car expr) ": "
-		       (emmet-join-string
+		       (string-join
 			(mapcar #'(lambda (arg)
 				    (if (listp arg) (apply #'concat arg) arg))
 				(cdddr expr)) " ")
