@@ -1,4 +1,4 @@
-;; src/snippets.el
+;; emmet-data-snippets.el
 ;; This file is generated from conf/snippets.json
 ;; Don't edit.
 (defvar emmet-snippets
@@ -785,3 +785,5 @@ tbl) tbl)
 tbl) tbl)
 tbl) tbl)
 tbl))
+(provide 'emmet-data-snippets)
+;; emmet-data-snippets.el ends here
