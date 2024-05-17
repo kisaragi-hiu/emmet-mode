@@ -109,7 +109,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
      (emmet-pif (emmet-parse
                      "@\\([0-9-][0-9]*\\)" 2 "numbering args"
                      (let* ((args (read (elt it 1)))
-                            (direction  (not (or (eq '- args) (minusp args))))
+                            (direction  (not (or (eq '- args) (cl-minusp args))))
                             (base       (if (eq '- args) 1 (abs args))))
                        `((n ,(length doller) ,direction ,base) . ,input)))
                     it
@@ -140,9 +140,9 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
                       (mapcar
                        (lambda (exp)
                          (if (listp exp)
-                             (let ((digits (second exp))
-                                   (direction (third exp))
-                                   (base (fourth exp)))
+                             (let ((digits (cl-second exp))
+                                   (direction (cl-third exp))
+                                   (base (cl-fourth exp)))
                                (let ((num (if direction (+ base i)
                                             (- (+ lim (- base 1)) i))))
                                  (format (concat "%0" (format "%d" digits) "d") num)))
@@ -241,16 +241,16 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
          (prog1
              (let ((rt (copy-tree expr)))
                (let ((first-tag-data (cadr (emmet-get-first-tag rt))))
-                 (setf (second first-tag-data) (second tag-data))
-                 (setf (third first-tag-data)  (third tag-data))
-                 (setf (fourth first-tag-data)
+                 (setf (cl-second first-tag-data) (cl-second tag-data))
+                 (setf (cl-third first-tag-data)  (cl-third tag-data))
+                 (setf (cl-fourth first-tag-data)
                        (cl-remove-duplicates
-                        (append (fourth first-tag-data)
-                                (fourth tag-data)) :test #'string=))
-                 (setf (fifth first-tag-data)
+                        (append (cl-fourth first-tag-data)
+                                (cl-fourth tag-data)) :test #'string=))
+                 (setf (cl-fifth first-tag-data)
                        (cl-remove-duplicates
-                        (append (fifth first-tag-data)
-                                (fifth tag-data))
+                        (append (cl-fifth first-tag-data)
+                                (cl-fifth tag-data))
                         :test #'(lambda (p1 p2)
                                   (eql (car p1) (car p2)))))
                  (setf (cl-sixth first-tag-data) (cl-sixth tag-data))
