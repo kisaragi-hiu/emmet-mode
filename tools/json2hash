@@ -1,20 +1,10 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
-from __future__ import print_function
 import json
 import sys
 import os
 import re
 import argparse
-
-python2 = sys.version_info[0] == 2
-python3 = sys.version_info[0] == 3
-
-if python2:
-    from cStringIO import StringIO
-if python3:
-    from io import StringIO
-
+from io import StringIO
 
 
 class ApplicationException(Exception):
@@ -49,7 +39,7 @@ class Processor(object):
             self.out.write(')\n')
         elif _type is bool:
             self.out.write('t' if data else 'nil')
-        elif (_type is str or _type is unicode):
+        elif (_type is str):
             self.out.write(pystr2elstrexp(data))
         else: # number ?
             self.out.write(str(data))
