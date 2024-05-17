@@ -78,7 +78,7 @@ def main():
         if options.defvar:
             out.write(')\n')
         out.write("(provide '{})\n".format(os.path.splitext(options.o)[0]))
-        out.write(';; {} ends here\n'.format(options.o))
+        out.write(';;; {} ends here\n'.format(options.o))
     except:
         if options.o:
             out.close()

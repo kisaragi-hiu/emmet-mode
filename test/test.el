@@ -45,8 +45,8 @@
                          ,fn
                          ',(cl-loop for x on tests by #'cddr collect
                                  (cons (car x)
-                                       (emmet-join-string (cadr x)
-                                                              "\n")))))
+                                       (string-join (cadr x)
+                                                        "\n")))))
 
 (defmacro define-emmet-transform-html-test-case (name &rest tests)
   `(define-emmet-transform-test-case ,name

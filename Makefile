@@ -12,7 +12,7 @@ emmet-data-preferences.el: conf/preferences.json
 clean:
 	rm -f emmet-mode.elc emmet-data-snippets.el emmet-data-preferences.el
 
-test:
+test: all
 	/usr/bin/env emacs --batch -L . --load test/test.el
 
 docs:
