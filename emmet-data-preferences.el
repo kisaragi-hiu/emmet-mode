@@ -1,4 +1,4 @@
-;; src/preferences.el
+;; emmet-data-preferences.el
 ;; This file is generated from conf/preferences.json
 ;; Don't edit.
 (defvar emmet-preferences
@@ -1543,3 +1543,5 @@ tbl) tbl)
 tbl) tbl)
 tbl) tbl)
 tbl))
+(provide 'emmet-data-preferences)
+;; emmet-data-preferences.el ends here

@@ -580,3 +580,5 @@ See `emmet-preview-online'."
     (error "First edit point reached.")))
 
 (provide 'emmet-mode)
+(require 'emmet-data-snippets)
+(require 'emmet-data-preferences)
