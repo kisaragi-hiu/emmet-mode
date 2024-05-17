@@ -394,7 +394,7 @@ accept it or skip it."
 
 To use this, add the function as a local hook:
 
-  (add-hook 'post-self-insert-hook 'emmet-preview-online t t)
+  (add-hook \\='post-self-insert-hook \\='emmet-preview-online t t)
 
 or enable `emmet-preview-mode'."
   (ignore-errors
