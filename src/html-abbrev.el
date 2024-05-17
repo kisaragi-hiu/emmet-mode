@@ -1,8 +1,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML abbrev
 
-(require 'cl-lib)
-
 (emmet-defparameter
  emmet-tag-aliases-table
  (gethash "aliases" (gethash "html" emmet-snippets)))

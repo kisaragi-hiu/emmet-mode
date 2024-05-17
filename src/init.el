@@ -3,9 +3,7 @@
 ;;; Code:
 
 (defconst emmet-mode:version "1.0.10")
-
-(with-no-warnings
-  (require 'cl))
+(require 'cl-lib)
 
 (defmacro emmet-defparameter (symbol &optional initvalue docstring)
   `(progn

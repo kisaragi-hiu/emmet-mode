@@ -69,9 +69,7 @@
 ;;; Code:
 
 (defconst emmet-mode:version "1.0.10")
-
-(with-no-warnings
-  (require 'cl))
+(require 'cl-lib)
 
 (defmacro emmet-defparameter (symbol &optional initvalue docstring)
   `(progn
@@ -3065,8 +3063,6 @@ tbl) tbl)
 tbl))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML abbrev
-
-(require 'cl-lib)
 
 (emmet-defparameter
  emmet-tag-aliases-table
