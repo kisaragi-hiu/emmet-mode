@@ -2,7 +2,7 @@
 ;;
 ;;; CSS abbrev:
 
-(emmet-defparameter
+(defvar
  emmet-css-unit-aliases
  (gethash "unitAliases" (gethash "css" emmet-preferences)))
 (defun emmet-css-arg-number (input)
@@ -15,13 +15,13 @@
                    (gethash unit emmet-css-unit-aliases unit))))
          input)))
 
-(emmet-defparameter
+(defvar
  emmet-css-color-shorten-if-possible
  (gethash "shortenIfPossible" (gethash "color" (gethash "css" emmet-preferences))))
-(emmet-defparameter
+(defvar
  emmet-css-color-case
  (gethash "case" (gethash "color" (gethash "css" emmet-preferences))))
-(emmet-defparameter
+(defvar
  emmet-css-color-trailing-aliases
  (gethash "trailingAliases" (gethash "color" (gethash "css" emmet-preferences))))
 (defun emmet-css-arg-color (input)
@@ -141,19 +141,19 @@
   (mapcar #'emmet-css-subexpr
           (emmet-css-toknize input)))
 
-(emmet-defparameter
+(defvar
  emmet-css-snippets
  (gethash "snippets" (gethash "css" emmet-snippets)))
 
-(emmet-defparameter
+(defvar
  emmet-sass-snippets
  (gethash "snippets" (gethash "sass" emmet-snippets)))
 
-(emmet-defparameter
+(defvar
  emmet-css-unitless-properties
  (gethash "unitlessProperties" (gethash "css" emmet-preferences)))
 
-(emmet-defparameter
+(defvar
  emmet-css-unitless-properties-regex
  (concat "^\\(:?" (emmet-join-string
                    emmet-css-unitless-properties "\\|")
@@ -197,10 +197,10 @@
                              (nthcdr ,idx-max ,args) " "))))
               ,body)))))))
 
-(emmet-defparameter
+(defvar
  emmet-vendor-prefixes-properties
  (gethash "vendorPrefixesProperties" (gethash "css" emmet-preferences)))
-(emmet-defparameter
+(defvar
  emmet-vendor-prefixes-default
  (list "webkit" "moz" "ms" "o"))
 (defun emmet-css-transform-vendor-prefixes (line vp)

@@ -5,11 +5,6 @@
 (defconst emmet-mode:version "1.0.10")
 (require 'cl-lib)
 
-(defmacro emmet-defparameter (symbol &optional initvalue docstring)
-  `(progn
-     (defvar ,symbol nil ,docstring)
-     (setq   ,symbol ,initvalue)))
-
 (defun emmet-join-string (lis joiner)
   (mapconcat 'identity lis joiner))
 

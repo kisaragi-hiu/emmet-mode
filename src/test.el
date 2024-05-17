@@ -3,7 +3,7 @@
 
 (load-file (concat (file-name-directory (or load-file-name (buffer-file-name))) "../emmet-mode.el"))
 
-(emmet-defparameter *emmet-test-cases* nil)
+(defvar *emmet-test-cases* nil)
 
 (require 'cl-lib)
 

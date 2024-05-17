@@ -1,7 +1,7 @@
 ;; src/preferences.el
 ;; This file is generated from conf/preferences.json
 ;; Don't edit.
-(emmet-defparameter emmet-preferences
+(defvar emmet-preferences
 (let ((tbl (make-hash-table :test 'equal)))
 (puthash "css" (let ((tbl (make-hash-table :test 'equal)))
 (puthash "color" (let ((tbl (make-hash-table :test 'equal)))

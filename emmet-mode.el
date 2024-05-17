@@ -71,11 +71,6 @@
 (defconst emmet-mode:version "1.0.10")
 (require 'cl-lib)
 
-(defmacro emmet-defparameter (symbol &optional initvalue docstring)
-  `(progn
-     (defvar ,symbol nil ,docstring)
-     (setq   ,symbol ,initvalue)))
-
 (defun emmet-join-string (lis joiner)
   (mapconcat 'identity lis joiner))
 
@@ -732,7 +727,7 @@ See `emmet-preview-online'."
 ;; src/snippets.el
 ;; This file is generated from conf/snippets.json
 ;; Don't edit.
-(emmet-defparameter emmet-snippets
+(defvar emmet-snippets
 (let ((tbl (make-hash-table :test 'equal)))
 (puthash "css" (let ((tbl (make-hash-table :test 'equal)))
 (puthash "snippets" (let ((tbl (make-hash-table :test 'equal)))
@@ -1519,7 +1514,7 @@ tbl))
 ;; src/preferences.el
 ;; This file is generated from conf/preferences.json
 ;; Don't edit.
-(emmet-defparameter emmet-preferences
+(defvar emmet-preferences
 (let ((tbl (make-hash-table :test 'equal)))
 (puthash "css" (let ((tbl (make-hash-table :test 'equal)))
 (puthash "color" (let ((tbl (make-hash-table :test 'equal)))
@@ -3064,7 +3059,7 @@ tbl))
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML abbrev
 
-(emmet-defparameter
+(defvar
  emmet-tag-aliases-table
  (gethash "aliases" (gethash "html" emmet-snippets)))
 
@@ -3557,11 +3552,11 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
 (defvar emmet-jsx-className-braces? nil
   "Wether to wrap classNames in {} instead of \"\"")
 
-(emmet-defparameter
+(defvar
  emmet-tag-settings-table
  (gethash "tags" (gethash "html" emmet-preferences)))
 
-(emmet-defparameter
+(defvar
  emmet-tag-snippets-table
  (gethash "snippets" (gethash "html" emmet-snippets)))
 
@@ -3986,7 +3981,7 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
 ;;
 ;;; CSS abbrev:
 
-(emmet-defparameter
+(defvar
  emmet-css-unit-aliases
  (gethash "unitAliases" (gethash "css" emmet-preferences)))
 (defun emmet-css-arg-number (input)
@@ -3999,13 +3994,13 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
                    (gethash unit emmet-css-unit-aliases unit))))
          input)))
 
-(emmet-defparameter
+(defvar
  emmet-css-color-shorten-if-possible
  (gethash "shortenIfPossible" (gethash "color" (gethash "css" emmet-preferences))))
-(emmet-defparameter
+(defvar
  emmet-css-color-case
  (gethash "case" (gethash "color" (gethash "css" emmet-preferences))))
-(emmet-defparameter
+(defvar
  emmet-css-color-trailing-aliases
  (gethash "trailingAliases" (gethash "color" (gethash "css" emmet-preferences))))
 (defun emmet-css-arg-color (input)
@@ -4125,19 +4120,19 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
   (mapcar #'emmet-css-subexpr
           (emmet-css-toknize input)))
 
-(emmet-defparameter
+(defvar
  emmet-css-snippets
  (gethash "snippets" (gethash "css" emmet-snippets)))
 
-(emmet-defparameter
+(defvar
  emmet-sass-snippets
  (gethash "snippets" (gethash "sass" emmet-snippets)))
 
-(emmet-defparameter
+(defvar
  emmet-css-unitless-properties
  (gethash "unitlessProperties" (gethash "css" emmet-preferences)))
 
-(emmet-defparameter
+(defvar
  emmet-css-unitless-properties-regex
  (concat "^\\(:?" (emmet-join-string
                    emmet-css-unitless-properties "\\|")
@@ -4181,10 +4176,10 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
                              (nthcdr ,idx-max ,args) " "))))
               ,body)))))))
 
-(emmet-defparameter
+(defvar
  emmet-vendor-prefixes-properties
  (gethash "vendorPrefixesProperties" (gethash "css" emmet-preferences)))
-(emmet-defparameter
+(defvar
  emmet-vendor-prefixes-default
  (list "webkit" "moz" "ms" "o"))
 (defun emmet-css-transform-vendor-prefixes (line vp)

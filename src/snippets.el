@@ -1,7 +1,7 @@
 ;; src/snippets.el
 ;; This file is generated from conf/snippets.json
 ;; Don't edit.
-(emmet-defparameter emmet-snippets
+(defvar emmet-snippets
 (let ((tbl (make-hash-table :test 'equal)))
 (puthash "css" (let ((tbl (make-hash-table :test 'equal)))
 (puthash "snippets" (let ((tbl (make-hash-table :test 'equal)))

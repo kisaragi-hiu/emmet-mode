@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; XML abbrev
 
-(emmet-defparameter
+(defvar
  emmet-tag-aliases-table
  (gethash "aliases" (gethash "html" emmet-snippets)))
 
@@ -494,11 +494,11 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
 (defvar emmet-jsx-className-braces? nil
   "Wether to wrap classNames in {} instead of \"\"")
 
-(emmet-defparameter
+(defvar
  emmet-tag-settings-table
  (gethash "tags" (gethash "html" emmet-preferences)))
 
-(emmet-defparameter
+(defvar
  emmet-tag-snippets-table
  (gethash "snippets" (gethash "html" emmet-snippets)))
 
