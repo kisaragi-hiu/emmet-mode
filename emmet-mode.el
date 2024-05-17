@@ -788,13 +788,12 @@ Return `(,inner-text ,input-without-inner-text) if succeeds, otherwise return
                               (let ((len (length str)))
                                 (if (>= pos len) nil
                                   (let ((c (char-at-pos str pos)))
-                                    (cond ((char-equal c ?{) (setq cnt (+ cnt 1)))
-                                          ((and (char-equal c ?}) (not (char-equal (char-at-pos str (- pos 1)) ?\\))) (setq cnt (- cnt 1))))
-                                    (if (= cnt 0) pos (helper str (+ pos 1) cnt)))))
-                              ))
+                                    (cond ((char-equal c ?\{) (setq cnt (+ cnt 1)))
+                                          ((and (char-equal c ?\}) (not (char-equal (char-at-pos str (- pos 1)) ?\\))) (setq cnt (- cnt 1))))
+                                    (if (= cnt 0) pos (helper str (+ pos 1) cnt)))))))
                   (helper str 0 0))))
     (let ((err '(error "expected inner text")))
-      (if (or (< (length input) 2) (not (char-equal (string-to-char input) ?{))) err
+      (if (or (< (length input) 2) (not (char-equal (string-to-char input) ?\{))) err
         (emmet-aif (string-find-paired-right-curly-brace input)
             `(,input
               ,(substring input 1 it)
