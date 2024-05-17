@@ -27,7 +27,7 @@ clean:
 	rm -f emmet-mode.elc emmet-mode.el src/snippets.el src/preferences.el
 
 test:
-	/usr/bin/env emacs --quick --script src/test.el
+	/usr/bin/env emacs --batch -L . --load src/test.el
 
 docs:
 	echo docs

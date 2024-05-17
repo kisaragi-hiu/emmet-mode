@@ -1,7 +1,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Test-cases
 
-(load-file (concat (file-name-directory (or load-file-name (buffer-file-name))) "../emmet-mode.el"))
+(require 'emmet-mode)
 
 (defvar *emmet-test-cases* nil)
 
